@@ -158,6 +158,62 @@ namespace Grep
 
         }
 
+        private void SearchInFile_txt_html(object path)
+        {
+            string text = "";
+            string str;
+            try
+            {
+                using (StreamReader reader = File.OpenText(Convert.ToString(path)))
+                {
+                    while ((str = reader.ReadLine()) != null)
+                    {
+                        text += str;
+                    }
+                }
+                SetWayOfGrapping(SearchingString, text, path);
+            }
+            catch
+            {
+
+            }
+
+
+        }
+        private void SearchInFile_docx(object path)
+        {
+            string text = "";
+            try
+            {
+                Application application = new Application();
+                Document document = application.Documents.Open(path);
+                for (int i = 1; i <= document.Words.Count; i++)
+                {
+                    text += document.Words[i].Text;
+                }
+                application.Quit();
+                SetWayOfGrapping(SearchingString, text, path);
+            }
+            catch { }
+
+        }
+        private void SearchInFile_dat(object path)
+        {
+            string text = "";
+            string str;
+            try
+            {
+                using (BinaryReader reader = new BinaryReader(File.Open(Convert.ToString(path), FileMode.Open)))
+                {
+                    while ((str = reader.ReadString()) != "")
+                    {
+                        text += str;
+                    }
+                }
+                SetWayOfGrapping(SearchingString, text, path);
+            }
+            catch { }
+        }
     }
 
     class Program
