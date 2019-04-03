@@ -98,6 +98,65 @@ namespace Grep
 
         }
 
+        private void RecursiveSearch(object directory)
+        {
+            try
+            {
+                DirectoryInfo dir = new DirectoryInfo(Convert.ToString(@directory));
+                foreach (var d in dir.GetDirectories())
+                {
+
+                    Thread DirThread = new Thread(RecursiveSearch) { IsBackground = true };
+                    DirThread.Start(directory + "\\" + d);
+
+                }
+                foreach (var f in dir.GetFiles())
+                {
+
+                    string path = f.DirectoryName + "\\" + f;
+                    string[] type = Convert.ToString(f).Split('.');
+                    try
+                    {
+                        Thread FileThread;
+                        switch (type[type.Length - 1])
+                        {
+                            case "doc":
+                                FileThread = new Thread(SearchInFile_docx) { IsBackground = true };
+                                FileThread.Start(path);
+                                break;
+                            case "docx":
+                                FileThread = new Thread(SearchInFile_docx) { IsBackground = true };
+                                FileThread.Start(path);
+                                break;
+                            case "txt":
+                                FileThread = new Thread(SearchInFile_txt_html) { IsBackground = true };
+                                FileThread.Start(path);
+                                break;
+                            case "html":
+                                FileThread = new Thread(SearchInFile_txt_html) { IsBackground = true };
+                                FileThread.Start(path);
+                                break;
+                            case "dat":
+                                FileThread = new Thread(SearchInFile_dat) { IsBackground = true };
+                                FileThread.Start(path);
+                                break;
+                        }
+
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+
+
+        }
 
     }
 
