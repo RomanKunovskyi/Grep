@@ -214,6 +214,47 @@ namespace Grep
             }
             catch { }
         }
+        private bool Search(string str, string text)
+        {
+
+            bool check = true;
+            bool check1 = true;
+            if (text.Contains(str))
+            {
+                string[] text_split = Convert.ToString(text).Split('.');
+
+                for (int i = 0; i < text_split.Length; i++)
+                {
+                    if (text_split[i].Contains(str))
+                    {
+                        check = false;
+                        string[] text_split_split = Convert.ToString(text).Split('.', ',', ' ', ';', ':', '?', '!', '/', '\\', '+', '*', '%');
+                        for (int j = 0; j < text_split_split.Length; j++)
+                        {
+                            if (text_split_split[j].Contains(str))
+                            {
+                                check1 = false;
+                                Console.WriteLine(text_split_split[j]);
+                            }
+                        }
+                        if (check1)
+                        {
+                            Console.WriteLine(text_split[i]);
+                        }
+                    }
+                }
+                if (check)
+                {
+
+                    Console.WriteLine(text);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     class Program
