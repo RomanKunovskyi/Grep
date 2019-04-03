@@ -408,6 +408,50 @@ namespace Grep
 
 
         }
+        private void SetWayOfGrapping(string searchingstring, string Text, object path)
+        {
+            switch (GrepType)
+            {
+                case "":
+                    if (Search(searchingstring, Text))
+                    {
+                        Console.WriteLine("( " + path + " )\n");
+                    }
+
+                    break;
+                case "-i":
+                    if (Search_Ignore_Case(searchingstring, Text))
+                    {
+                        Console.WriteLine("( " + path + " )\n");
+                    }
+                    break;
+                case "-c":
+                    if (Count(searchingstring, Text) != 0)
+                    {
+                        Console.WriteLine("( " + path + " )\n");
+                    }
+                    break;
+                case "-v":
+                    if (Search_Invert_Match(searchingstring, Text))
+                    {
+                        Console.WriteLine("( " + path + " )\n");
+                    }
+                    break;
+                case "-l":
+                    if (Search_Files_With_Matches(Text, searchingstring))
+                    {
+                        Console.WriteLine("( " + path + " )\n");
+                    }
+                    break;
+                case "-L":
+                    if (Search_Files_Without_Matches(Text, searchingstring))
+                    {
+                        Console.WriteLine("( " + path + " )\n");
+                    }
+                    break;
+
+            }
+        }
     }
 
     class Program
