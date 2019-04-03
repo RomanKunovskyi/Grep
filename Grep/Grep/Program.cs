@@ -255,6 +255,50 @@ namespace Grep
                 return false;
             }
         }
+        private bool Search_Ignore_Case(string str, string text)
+        {
+            string upper_text = text.ToUpper();
+            string upper_str = str.ToUpper();
+
+            bool check = true;
+            bool check1 = true;
+            if (upper_text.Contains(upper_str))
+            {
+                string[] text_split = Convert.ToString(text).Split('.');
+                string[] upper_text_split = Convert.ToString(upper_text).Split('.');
+                for (int i = 0; i < upper_text_split.Length; i++)
+                {
+                    if (upper_text_split[i].Contains(upper_str))
+                    {
+                        check = false;
+                        string[] text_split_split = Convert.ToString(text).Split('.', ',', ' ', ';', ':', '?', '!', '/', '\\', '+', '*', '%');
+                        string[] upper_text_split_split = Convert.ToString(upper_text).Split('.', ',', ' ', ';', ':', '?', '!', '/', '\\', '+', '*', '%');
+                        for (int j = 0; j < upper_text_split_split.Length; j++)
+                        {
+                            if (upper_text_split_split[j].Contains(upper_str))
+                            {
+                                check1 = false;
+                                Console.WriteLine(text_split_split[j]);
+                            }
+                        }
+                        if (check1)
+                        {
+                            Console.WriteLine(text_split[i]);
+                        }
+                    }
+                }
+                if (check)
+                {
+
+                    Console.WriteLine(text);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     class Program
