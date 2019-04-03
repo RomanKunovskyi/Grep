@@ -375,6 +375,39 @@ namespace Grep
 
 
         }
+        private bool Search_Files_With_Matches(string text, string str)
+        {
+
+            if (text.Contains(str))
+            {
+                Console.WriteLine("true");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("false");
+                return false;
+            }
+
+
+        }
+        private bool Search_Files_Without_Matches(string text, string str)
+        {
+
+            if (text.Contains(str))
+            {
+
+                Console.WriteLine("false");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("true");
+                return true;
+            }
+
+
+        }
     }
 
     class Program
