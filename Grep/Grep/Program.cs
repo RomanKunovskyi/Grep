@@ -299,6 +299,53 @@ namespace Grep
                 return false;
             }
         }
+        private int Count(string str, string text)
+        {
+            int lokal_amount = 0;
+            bool check = true;
+            bool check1 = true;
+            bool check2 = true;
+            if (text.Contains(str))
+            {
+                string[] text_split = Convert.ToString(text).Split('.');
+
+                for (int i = 0; i < text_split.Length; i++)
+                {
+                    if (text_split[i].Contains(str))
+                    {
+                        check = false;
+                        string[] text_split_split = Convert.ToString(text).Split('.', ',', ' ', ';', ':', '?', '!', '/', '\\', '+', '*', '%');
+                        for (int j = 0; j < text_split_split.Length; j++)
+                        {
+                            if (text_split_split[j].Contains(str))
+                            {
+                                if (check2)
+                                {
+                                    amount++;
+                                    lokal_amount++;
+                                }
+                                check1 = false;
+
+                            }
+                        }
+                        if (check1)
+                        {
+
+                            lokal_amount++;
+                            amount++;
+                        }
+                    }
+                }
+                if (check)
+                {
+                    amount++;
+                    lokal_amount++;
+                }
+            }
+            Console.WriteLine("General amount : " + amount);
+            Console.WriteLine("Lokal file  amount : " + lokal_amount);
+            return amount;
+        }
     }
 
     class Program
