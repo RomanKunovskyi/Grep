@@ -346,6 +346,35 @@ namespace Grep
             Console.WriteLine("Lokal file  amount : " + lokal_amount);
             return amount;
         }
+        private bool Search_Invert_Match(string str, string text)
+        {
+            bool cheack = false;
+            if (text.Contains(str))
+            {
+
+                string[] text_split = Convert.ToString(text).Split('.');
+
+                for (int i = 0; i < text_split.Length; i++)
+                {
+                    if (!text_split[i].Contains(str))
+                    {
+                        cheack = true;
+                        Console.WriteLine(text_split[i]);
+                    }
+
+
+                }
+
+                return cheack;
+            }
+            else
+            {
+                Console.WriteLine(text);
+                return true;
+            }
+
+
+        }
     }
 
     class Program
